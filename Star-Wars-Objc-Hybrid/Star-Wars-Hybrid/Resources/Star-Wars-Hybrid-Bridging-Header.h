@@ -3,3 +3,5 @@
 //
 
 // TODO: Add the LSIPerson class to expose it to Swift
+
+#import "LSIPerson.h"
