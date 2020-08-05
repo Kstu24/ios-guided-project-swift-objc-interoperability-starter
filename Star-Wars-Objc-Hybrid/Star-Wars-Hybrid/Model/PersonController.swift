@@ -21,7 +21,7 @@ class PersonController: NSObject {
     
     // TODO: Add LSIPerson.h to bridging header
     // TODO: Add PersonController.swift to target
-    func searchForPeople(with searchTerm: String, completion: @escaping ([LSIPerson]?, Error?) -> Void) {
+    func searchForPeople(with searchTerm: String, completion: @escaping ([Person]?, Error?) -> Void) {
         var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)!
         let searchItem = URLQueryItem(name: "search", value: searchTerm)
         components.queryItems = [searchItem]
@@ -50,8 +50,16 @@ class PersonController: NSObject {
                 guard let personDictionary = dictionary["results"] as? [[String : Any]] else {
                     throw APIError.JSONMissingResults
                 }
-            } catch {
                 
+                let people = personDictionary.compactMap { Person(dictionary: $0) }
+                
+                DispatchQueue.main.async {
+                    completion(people, nil)
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    completion(nil, error)
+                }
             }
             
         }.resume()
