@@ -6,23 +6,23 @@
 //  Copyright © 2020 Lambda, Inc. All rights reserved.
 //
 
-#import "ContactsController.h"
+#import "LSIContactsController.h"
 //#import "Contacts-Hybrid-Bridging-Header.h"
 #import "Contacts_Hybrid-Swift.h"
 
-@interface ContactsController ()
+@interface LSIContactsController ()
 
 @property (nonatomic) NSMutableArray *internalContacts;
 
 @end
 
-@implementation ContactsController
+@implementation LSIContactsController
 
 - (instancetype)init
 {
     if (self = [super init]) {
         _internalContacts = [[NSMutableArray alloc] init];
-        Contact *contact = [[Contact alloc] initWithName:@"Kevin"
+        LSIContact *contact = [[LSIContact alloc] initWithName:@"Kevin"
                                             relationship:@"Myself"];
         [_internalContacts addObject:contact];
     }
